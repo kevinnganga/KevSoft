@@ -11,24 +11,25 @@ public class User {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "ID",nullable = false,unique = true,updatable = false)
 	private Long id;
 	
-	@Column(name = "username",length = 30,nullable = false,unique = true)
+	@Column(name = "USER_NAME",length = 30,nullable = false,unique = true)
 	private String username;
 	
-	@Column(name = "firstname",length = 30,nullable = false)
+	@Column(name = "FIRST_NAME",length = 30,nullable = false)
 	private String firstname;
 	
-	@Column(name = "lastname",length = 30,nullable = false)
+	@Column(name = "LAST_NAME",length = 30,nullable = false)
 	private String lastname;
 	
-	@Column(name = "email",length = 30,nullable = false,unique = true)
+	@Column(name = "EMAIL_ADDRESS",length = 30,nullable = false,unique = true)
 	private String email;
 	
-	@Column(name = "role",length = 30,nullable = false)
+	@Column(name = "ROLE",length = 30,nullable = false)
 	private String role;
 	
-	@Column(name = "ssn",length = 100,nullable = false,unique = true)
+	@Column(name = "SSN",nullable = false,unique = true)
 	private String ssn;  //SOCIAL SECURITY NUMBER
 	
 
@@ -37,21 +38,9 @@ public class User {
 		
 	}
 
-	
-	public User(String username, String firstname, String lastname, String email, String role, String ssn) {
-		//super();
-		this.username = username;
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.email = email;
-		this.role = role;
-		this.ssn = ssn;
-	}
-
-
 	//Fields Constructor
 	public User(Long id, String username, String firstname, String lastname, String email, String role, String ssn) {
-		//super();
+		
 		this.id = id;
 		this.username = username;
 		this.firstname = firstname;
@@ -63,6 +52,8 @@ public class User {
 	
 	
 	
+
+
 
 	//Getters And Setters
 	public Long getId() {
