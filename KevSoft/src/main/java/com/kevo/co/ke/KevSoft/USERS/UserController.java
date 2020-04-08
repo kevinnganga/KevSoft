@@ -23,9 +23,8 @@ public class UserController {
 		return userService.getAllUsers();
 	}
 	
-	@PostMapping("/create")
-	public User CreateUser(User user) {
-		new User("kevo","kevin","Nganga","kevo@gmail.com","ADMIN","1009");
+	@PostMapping("/saving")
+	public User CreateUser(@RequestBody User user) {
 		return userService.createUser(user);
 	}
 	
@@ -45,8 +44,8 @@ public class UserController {
 		userService.deleteUserById(id);
 	}
 	
-	@GetMapping("/user/username")
-	public User GetUserByUserName(String username) {
+	@GetMapping("/user/{username}")
+	public User GetUserByUserName(@PathVariable("username") String username) {
 		return userService.getUserByUserName(username);
 	}
 
