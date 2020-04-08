@@ -51,7 +51,7 @@ public class User {
 	
 	
 	
-	
+	//Fields Constructor without the id
 	public User(String username, String firstname, String lastname, String email, String role, String ssn) {
 		super();
 		this.username = username;
