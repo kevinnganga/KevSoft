@@ -1,13 +1,27 @@
 package com.kevo.co.ke.KevSoft.USERS;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.springframework.data.annotation.CreatedDate;
+
+import com.kevo.co.ke.KevSoft.ORDERS.Orders;
+
+
 
 @Entity
 public class User {
@@ -37,12 +51,29 @@ public class User {
 	@Column(name = "SSN",length = 50,nullable = false,unique = true)
 	private String ssn;  //SOCIAL SECURITY NUMBER
 	
+	@NotNull
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "posted_at")
+    private Date postedAt = new Date();
+
+    @NotNull
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "last_updated_at")
+    private Date lastUpdatedAt = new Date();
+    
+  
+    @OneToMany(mappedBy = "user")
+	private List<Orders>orders;
+    
+    
+
 
 	//No Arguments Constructor
 	public User() {
 		
 	}
 
+	
 	//Fields Constructor
 	public User(Long id, String username, String firstname, String lastname, String email, String role, String ssn) {
 		
@@ -59,6 +90,40 @@ public class User {
 	
 
 
+
+	public User(Long id, @NotEmpty(message = "Username is Mandatory field. Please provide a username") String username,
+			@Size(min = 2, message = "FirstName should have atleast 2 characters") String firstname, String lastname,
+			String email, String role, String ssn, @NotNull Date postedAt, @NotNull Date lastUpdatedAt,
+			List<Orders> orders) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.email = email;
+		this.role = role;
+		this.ssn = ssn;
+		this.postedAt = postedAt;
+		this.lastUpdatedAt = lastUpdatedAt;
+		this.orders = orders;
+	}
+
+
+	public Date getPostedAt() {
+		return postedAt;
+	}
+
+	public void setPostedAt(Date postedAt) {
+		this.postedAt = postedAt;
+	}
+
+	public Date getLastUpdatedAt() {
+		return lastUpdatedAt;
+	}
+
+	public void setLastUpdatedAt(Date lastUpdatedAt) {
+		this.lastUpdatedAt = lastUpdatedAt;
+	}
 
 	//Getters And Setters
 	public Long getId() {
@@ -119,6 +184,16 @@ public class User {
 	
 	
 	
+	public List<Orders> getOrders() {
+		return orders;
+	}
+
+
+	public void setOrders(List<Orders> orders) {
+		this.orders = orders;
+	}
+
+
 	//To String
 	@Override
 	public String toString() {
